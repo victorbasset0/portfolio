@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio BTS SIO SISR</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy: #1a2744;
+      --navy-light: #243356;
+      --gold: #c8922a;
+      --gold-light: #e8b84b;
+      --cream: #f9f7f2;
+      --white: #ffffff;
+      --gray-100: #f4f3ef;
+      --gray-200: #e8e6e0;
+      --gray-700: #4a4540;
+      --text-main: #1a1814;
+      --text-muted: #6b6560;
+      --section-pad: 80px 48px;
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Source Sans 3', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-main);
+      background: var(--cream);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 60px;
+      box-shadow: 0 1px 0 rgba(200,146,42,0.3);
+    }
+
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--gold-light);
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold-light); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      color: white;
+      padding: 100px 48px 90px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,146,42,0.15);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,146,42,0.1);
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(38px, 5vw, 58px);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-size: 18px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .tag {
+      background: rgba(200,146,42,0.15);
+      border: 1px solid rgba(200,146,42,0.35);
+      color: var(--gold-light);
+      padding: 5px 14px;
+      border-radius: 2px;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 13px 28px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+
+    .hero-cta:hover { background: var(--gold-light); }
+
+    .hero-avatar {
+      width: 180px;
+      height: 220px;
+      background: var(--navy-light);
+      border: 2px solid rgba(200,146,42,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar-initials {
+      font-family: var(--font-display);
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+
+    .avatar-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── SECTIONS COMMUNES ── */
+    section { padding: var(--section-pad); }
+    section:nth-child(even) { background: var(--white); }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 48px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+
+    /* ── À PROPOS ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-text {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--gray-700);
+    }
+
+    .about-text p + p { margin-top: 16px; }
+
+    .info-list {
+      background: var(--gray-100);
+      padding: 28px;
+      border-left: 3px solid var(--gold);
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .info-item:last-child { border-bottom: none; }
+
+    .info-key {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .info-val {
+      font-size: 15px;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* ── COMPÉTENCES ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 32px;
+    }
+
+    .skill-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      padding: 28px;
+      border-top: 3px solid var(--navy);
+    }
+
+    .skill-category {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .skill-list li {
+      font-size: 14px;
+      color: var(--gray-700);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .skill-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ── PROJETS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 8px 32px rgba(26,39,68,0.08);
+    }
+
+    .project-header {
+      background: var(--navy);
+      padding: 28px;
+      position: relative;
+    }
+
+    .project-number {
+      font-family: var(--font-display);
+      font-size: 52px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.06);
+      position: absolute;
+      right: 20px;
+      top: 10px;
+      line-height: 1;
+    }
+
+    .project-type {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: white;
+      font-weight: 600;
+    }
+
+    .project-body { padding: 24px; }
+
+    .project-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .project-techs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tech-badge {
+      background: var(--gray-100);
+      color: var(--navy);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── STAGES ── */
+    .stages-timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .stages-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--gray-200);
+    }
+
+    .stage-item {
+      position: relative;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .stage-item:last-child { border-bottom: none; }
+
+    .stage-item::before {
+      content: '';
+      position: absolute;
+      left: -38px;
+      top: 40px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--cream);
+    }
+
+    .stage-period {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .stage-company {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .stage-role {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .stage-tasks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .stage-tasks li {
+      font-size: 14px;
+      color: var(--gray-700);
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .stage-tasks li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--navy);
+      color: white;
+    }
+
+    #contact .section-title { color: white; }
+    #contact .section-label { color: var(--gold-light); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contact-text {
+      font-size: 16px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(200,146,42,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .contact-detail { font-size: 14px; color: rgba(255,255,255,0.8); }
+    .contact-detail-label { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+
+    .cv-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 14px 32px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background 0.2s;
+      border: none;
+      font-family: var(--font-body);
+      text-decoration: none;
+    }
+
+    .cv-btn:hover { background: var(--gold-light); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #111822;
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-name {
+      font-family: var(--font-display);
+      color: rgba(255,255,255,0.4);
+      font-size: 14px;
+    }
+
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 11px; }
+      .hero { padding: 60px 20px; grid-template-columns: 1fr; }
+      .hero-avatar { display: none; }
+      section { padding: 60px 20px; }
+      .about-grid,
+      .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+      footer { padding: 20px; flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <span class="nav-brand">J. Dupont</span>
+    <ul class="nav-links">
+      <li><a href="#about">Profil</a></li>
+      <li><a href="#skills">Compétences</a></li>
+      <li><a href="#projects">Projets</a></li>
+      <li><a href="#stages">Stages</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div>
+      <p class="hero-eyebrow">Portfolio — BTS SIO option SISR</p>
+      <h1 class="hero-name">Julien Dupont</h1>
+      <p class="hero-title">
+        Étudiant en informatique réseaux & sécurité<br>
+        Lycée André Malraux, Bordeaux
+      </p>
+      <div class="hero-tags">
+        <span class="tag">Administration réseaux</span>
+        <span class="tag">Sécurité informatique</span>
+        <span class="tag">Linux / Windows Server</span>
+        <span class="tag">BTS SIO 2025–2027</span>
+      </div>
+      <a href="#projects" class="hero-cta">Voir mes projets →</a>
+    </div>
+    <div class="hero-avatar">
+      <span class="avatar-initials">JD</span>
+      <span class="avatar-label">Photo à venir</span>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section id="about">
+    <p class="section-label">Qui suis-je</p>
+    <h2 class="section-title">À propos</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Étudiant en première année de BTS SIO option SISR au lycée André Malraux de Bordeaux, je me passionne pour l'administration des systèmes et la sécurité des réseaux informatiques.</p>
+        <p>Mon parcours m'a amené à développer des compétences en gestion des infrastructures réseau, administration des serveurs Linux et Windows, ainsi qu'en cybersécurité.</p>
+        <p>Ce portfolio recense mes compétences, mes projets réalisés en formation et en stage, ainsi que les épreuves E4 et E5 du BTS.</p>
+      </div>
+      <div class="info-list">
+        <div class="info-item">
+          <span class="info-key">Formation</span>
+          <span class="info-val">BTS SIO option SISR</span>
+        </div>
+        <div class="info-item">
+          <span class="info-key">Établissement</span>
+          <span class="info-val">Lycée André Malraux, Bordeaux</span>
+        </div>
+        <div class="info-item">
+          <span class="info-key">Promotion</span>
+          <span class="info-val">2025 – 2027</span>
+        </div>
+        <div class="info-item">
+          <span class="info-key">Localisation</span>
+          <span class="info-val">Bordeaux, France</span>
+        </div>
+        <div class="info-item">
+          <span class="info-key">Disponibilité stage</span>
+          <span class="info-val">Janvier – Février 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section id="skills" style="background: var(--gray-100);">
+    <p class="section-label">Savoir-faire</p>
+    <h2 class="section-title">Compétences</h2>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-category">Réseaux</div>
+        <ul class="skill-list">
+          <li>Cisco IOS / Packet Tracer</li>
+          <li>TCP/IP, VLAN, VPN</li>
+          <li>Routage OSPF / RIP</li>
+          <li>Wi-Fi & câblage structuré</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Systèmes</div>
+        <ul class="skill-list">
+          <li>Linux (Debian, Ubuntu)</li>
+          <li>Windows Server 2019</li>
+          <li>Active Directory / DNS</li>
+          <li>Virtualisation (VirtualBox)</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Sécurité</div>
+        <ul class="skill-list">
+          <li>Pare-feu (pfSense)</li>
+          <li>ACL & filtrage réseau</li>
+          <li>Audit & durcissement</li>
+          <li>Nagios / Supervision</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Outils & méthodes</div>
+        <ul class="skill-list">
+          <li>Bash / PowerShell</li>
+          <li>Git / GitHub</li>
+          <li>Documentation technique</li>
+          <li>Ticketing (GLPI)</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJETS -->
+  <section id="projects">
+    <p class="section-label">Réalisations</p>
+    <h2 class="section-title">Projets</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-number">01</span>
+          <p class="project-type">Infrastructure réseau</p>
+          <h3 class="project-title">Mise en place d'un réseau d'entreprise simulé</h3>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">Conception et configuration d'une architecture réseau complète sous Cisco Packet Tracer : segmentation en VLANs, routage inter-VLAN, serveur DHCP centralisé et accès sécurisé via VPN.</p>
+          <div class="project-techs">
+            <span class="tech-badge">Cisco IOS</span>
+            <span class="tech-badge">VLAN</span>
+            <span class="tech-badge">DHCP</span>
+            <span class="tech-badge">VPN</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-number">02</span>
+          <p class="project-type">Administration système</p>
+          <h3 class="project-title">Déploiement d'un Active Directory sous Windows Server</h3>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">Installation et configuration d'un contrôleur de domaine Windows Server 2019 : création des unités d'organisation, des GPO et gestion des droits d'accès aux ressources partagées.</p>
+          <div class="project-techs">
+            <span class="tech-badge">Windows Server 2019</span>
+            <span class="tech-badge">Active Directory</span>
+            <span class="tech-badge">GPO</span>
+            <span class="tech-badge">DNS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-number">03</span>
+          <p class="project-type">Sécurité & supervision</p>
+          <h3 class="project-title">Mise en place d'un pare-feu pfSense</h3>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">Configuration d'un pare-feu pfSense pour filtrer les flux réseau d'une infrastructure virtualisée : définition des règles de filtrage, création d'une DMZ et suivi des connexions.</p>
+          <div class="project-techs">
+            <span class="tech-badge">pfSense</span>
+            <span class="tech-badge">DMZ</span>
+            <span class="tech-badge">Pare-feu</span>
+            <span class="tech-badge">VirtualBox</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-number">04</span>
+          <p class="project-type">Automatisation</p>
+          <h3 class="project-title">Script de sauvegarde automatisée sous Linux</h3>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">Développement d'un script Bash pour automatiser les sauvegardes incrémentales sur un serveur Debian : planification via cron, compression et envoi par SFTP vers un NAS.</p>
+          <div class="project-techs">
+            <span class="tech-badge">Bash</span>
+            <span class="tech-badge">Linux Debian</span>
+            <span class="tech-badge">Cron</span>
+            <span class="tech-badge">SFTP</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STAGES -->
+  <section id="stages" style="background: var(--gray-100);">
+    <p class="section-label">Expériences</p>
+    <h2 class="section-title">Stages</h2>
+    <div class="stages-timeline">
+
+      <div class="stage-item">
+        <p class="stage-period">Janvier – Février 2026 · 5 semaines</p>
+        <h3 class="stage-company">Entreprise à compléter</h3>
+        <p class="stage-role">Technicien systèmes et réseaux — Stage de 1re année</p>
+        <ul class="stage-tasks">
+          <li>À venir — cette section sera mise à jour après le stage</li>
+        </ul>
+      </div>
+
+      <div class="stage-item">
+        <p class="stage-period">Mai – Juin 2027 · 6 semaines</p>
+        <h3 class="stage-company">Entreprise à compléter</h3>
+        <p class="stage-role">Technicien systèmes et réseaux — Stage de 2e année</p>
+        <ul class="stage-tasks">
+          <li>À venir — cette section sera mise à jour après le stage</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Me joindre</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-text">Disponible pour un stage en administration systèmes et réseaux. N'hésitez pas à me contacter pour toute opportunité.</p>
+        <a href="mailto:julien.dupont@email.com" class="cv-btn">Télécharger le CV →</a>
+      </div>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-icon">✉</div>
+          <div>
+            <div class="contact-detail-label">E-mail</div>
+            <div class="contact-detail">julien.dupont@email.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">☎</div>
+          <div>
+            <div class="contact-detail-label">Téléphone</div>
+            <div class="contact-detail">06 XX XX XX XX</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🔗</div>
+          <div>
+            <div class="contact-detail-label">LinkedIn</div>
+            <div class="contact-detail">linkedin.com/in/julien-dupont</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-detail-label">Localisation</div>
+            <div class="contact-detail">Bordeaux, France</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-name">Julien Dupont — BTS SIO SISR</span>
+    <span class="footer-copy">Portfolio 2025–2027</span>
+  </footer>
+
+</body>
+</html>
