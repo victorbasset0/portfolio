@@ -62,7 +62,7 @@
 
     .nav-links {
       display: flex;
-      gap: 32px;
+      gap: 28px;
       list-style: none;
     }
 
@@ -77,6 +77,10 @@
     }
 
     .nav-links a:hover { color: var(--gold-light); }
+
+    /* ── PAGES (affichage/masquage) ── */
+    .page { display: none; }
+    .page.active { display: block; }
 
     /* ── HERO ── */
     .hero {
@@ -167,6 +171,9 @@
       font-size: 14px;
       letter-spacing: 0.5px;
       transition: background 0.2s;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-body);
     }
 
     .hero-cta:hover { background: var(--gold-light); }
@@ -483,24 +490,11 @@
     #contact .section-title { color: white; }
     #contact .section-label { color: var(--gold-light); }
 
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: start;
-    }
-
-    .contact-text {
-      font-size: 16px;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.8;
-      margin-bottom: 32px;
-    }
-
     .contact-items {
       display: flex;
       flex-direction: column;
       gap: 16px;
+      max-width: 480px;
     }
 
     .contact-item {
@@ -527,24 +521,112 @@
     .contact-detail { font-size: 14px; color: rgba(255,255,255,0.8); }
     .contact-detail-label { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
 
-    .cv-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--gold);
-      color: var(--navy);
-      padding: 14px 32px;
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: background 0.2s;
-      border: none;
-      font-family: var(--font-body);
-      text-decoration: none;
+    /* ── TABLEAU E4 ── */
+    #page-tableau {
+      display: none;
+      background: var(--cream);
     }
 
-    .cv-btn:hover { background: var(--gold-light); }
+    #page-tableau.active {
+      display: block;
+    }
+
+    .tableau-section {
+      padding: var(--section-pad);
+    }
+
+    .tableau-intro {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 700px;
+    }
+
+    .tableau-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--white);
+      box-shadow: 0 2px 16px rgba(26,39,68,0.06);
+    }
+
+    thead tr {
+      background: var(--navy);
+      color: white;
+    }
+
+    thead th {
+      padding: 14px 12px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      vertical-align: bottom;
+    }
+
+    thead th:last-child { border-right: none; }
+
+    /* Sous-en-têtes compétences */
+    .th-competences {
+      background: var(--navy-light);
+      font-size: 10px;
+      color: var(--gold-light);
+      text-align: center;
+      padding: 10px 8px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--gray-200);
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover { background: var(--gray-100); }
+
+    /* Séparateurs de groupes */
+    .group-header td {
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 10px 14px;
+    }
+
+    tbody td {
+      padding: 12px 12px;
+      color: var(--gray-700);
+      vertical-align: middle;
+      border-right: 1px solid var(--gray-200);
+    }
+
+    tbody td:last-child { border-right: none; }
+
+    .td-realisation {
+      font-weight: 500;
+      color: var(--text-main);
+      min-width: 220px;
+    }
+
+    .td-periode {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      min-width: 140px;
+    }
+
+    .td-check {
+      text-align: center;
+      font-size: 16px;
+      color: var(--gold);
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -566,13 +648,12 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 0 20px; }
-      .nav-links { gap: 16px; }
-      .nav-links a { font-size: 11px; }
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: 10px; }
       .hero { padding: 60px 20px; grid-template-columns: 1fr; }
       .hero-avatar { display: none; }
-      section { padding: 60px 20px; }
-      .about-grid,
-      .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+      section, .tableau-section { padding: 60px 20px; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
       footer { padding: 20px; flex-direction: column; gap: 8px; }
     }
   </style>
@@ -583,314 +664,299 @@
   <nav>
     <span class="nav-brand">V. Basset</span>
     <ul class="nav-links">
-      <li><a href="#about">Profil</a></li>
-      <li><a href="#skills">Compétences</a></li>
-      <li><a href="#projects">Projets</a></li>
-      <li><a href="#stages">Stages</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" onclick="showPage('main'); scrollToSection('about'); return false;">Profil</a></li>
+      <li><a href="#" onclick="showPage('main'); scrollToSection('skills'); return false;">Compétences</a></li>
+      <li><a href="#" onclick="showPage('main'); scrollToSection('projects'); return false;">Projets</a></li>
+      <li><a href="#" onclick="showPage('main'); scrollToSection('stages'); return false;">Stages</a></li>
+      <li><a href="#" onclick="showPage('main'); scrollToSection('contact'); return false;">Contact</a></li>
+      <li><a href="#" onclick="showPage('tableau'); return false;">Tableau E4</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div>
-      <p class="hero-eyebrow">Portfolio — BTS SIO option SISR</p>
-      <h1 class="hero-name">Victor Basset</h1>
-      <p class="hero-title">
-        Étudiant en informatique réseaux & sécurité<br>
-        Lycée Élie Vinet, Barbezieux
-      </p>
-      <div class="hero-tags">
-        <span class="tag">Administration réseaux</span>
-        <span class="tag">Sécurité informatique</span>
-        <span class="tag">Supervision & logs</span>
-        <span class="tag">BTS SIO 2024–2026</span>
-      </div>
-      <a href="#projects" class="hero-cta">Voir mes projets →</a>
-    </div>
-    <div class="hero-avatar">
-      <span class="avatar-initials">VB</span>
-      <span class="avatar-label">Photo à venir</span>
-    </div>
-  </section>
+  <!-- ══════════════════════════════════ PAGE PRINCIPALE ══════════════════════════════════ -->
+  <div id="page-main" class="page active">
 
-  <!-- À PROPOS -->
-  <section id="about">
-    <p class="section-label">Qui suis-je</p>
-    <h2 class="section-title">À propos</h2>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>Étudiant en deuxième année de BTS SIO option SISR au lycée Élie Vinet de Barbezieux, je me passionne pour l'administration des systèmes, la supervision réseau et la sécurité informatique.</p>
-        <p>Au fil de ma formation et de mes stages, j'ai eu l'occasion de travailler sur des infrastructures réelles : déploiement de services réseau, sécurisation de systèmes, gestion de tickets et mise en place d'outils de supervision.</p>
-        <p>Ce portfolio recense mes compétences, mes projets réalisés en formation et en stage, ainsi que les épreuves E4 et E5 du BTS.</p>
-      </div>
-      <div class="info-list">
-        <div class="info-item">
-          <span class="info-key">Formation</span>
-          <span class="info-val">BTS SIO option SISR</span>
-        </div>
-        <div class="info-item">
-          <span class="info-key">Établissement</span>
-          <span class="info-val">Lycée Élie Vinet, Barbezieux</span>
-        </div>
-        <div class="info-item">
-          <span class="info-key">Promotion</span>
-          <span class="info-val">2024 – 2026</span>
-        </div>
-        <div class="info-item">
-          <span class="info-key">Localisation</span>
-          <span class="info-val">Barbezieux, Nouvelle-Aquitaine</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMPÉTENCES -->
-  <section id="skills" style="background: var(--gray-100);">
-    <p class="section-label">Savoir-faire</p>
-    <h2 class="section-title">Compétences</h2>
-    <div class="skills-grid">
-
-      <div class="skill-card">
-        <div class="skill-category">Réseaux</div>
-        <ul class="skill-list">
-          <li>Routage inter-VLAN</li>
-          <li>VPN + CA (autorité de certification)</li>
-          <li>Portail captif + RADIUS</li>
-          <li>Load Balancer avec Health Check</li>
-          <li>PXE avec WDS + MDT</li>
-        </ul>
-      </div>
-
-      <div class="skill-card">
-        <div class="skill-category">Systèmes</div>
-        <ul class="skill-list">
-          <li>Active Directory et GPO</li>
-          <li>Nextcloud + Fail2ban</li>
-          <li>Gestion de tickets avec GLPI</li>
-          <li>Déploiement de services</li>
-        </ul>
-      </div>
-
-      <div class="skill-card">
-        <div class="skill-category">Supervision & logs</div>
-        <ul class="skill-list">
-          <li>Centreon</li>
-          <li>Zabbix</li>
-          <li>Graylog</li>
-          <li>Dossiers de choix techniques</li>
-        </ul>
-      </div>
-
-      <div class="skill-card">
-        <div class="skill-category">Outils & méthodes</div>
-        <ul class="skill-list">
-          <li>Veille informationnelle (Google Alerts, flux RSS)</li>
-          <li>Documentation technique</li>
-          <li>Gestion de projet</li>
-        </ul>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- PROJETS -->
-  <section id="projects">
-    <p class="section-label">Réalisations</p>
-    <h2 class="section-title">Projets</h2>
-    <div class="projects-grid">
-
-      <div class="project-card">
-        <div class="project-header">
-          <span class="project-number">01</span>
-          <p class="project-type">Haute disponibilité</p>
-          <h3 class="project-title">Load Balancer avec Health Check</h3>
-        </div>
-        <div class="project-body">
-          <p class="project-desc">Mise en place d'un répartiteur de charge avec vérification automatique de l'état des serveurs, garantissant la continuité de service en cas de panne d'un nœud.</p>
-          <div class="project-techs">
-            <span class="tech-badge">Load Balancing</span>
-            <span class="tech-badge">Health Check</span>
-            <span class="tech-badge">Haute disponibilité</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <span class="project-number">02</span>
-          <p class="project-type">Supervision réseau</p>
-          <h3 class="project-title">Supervision avec Centreon et Zabbix</h3>
-        </div>
-        <div class="project-body">
-          <p class="project-desc">Déploiement et configuration de deux outils de supervision pour surveiller les équipements, générer des alertes et assurer le suivi de l'infrastructure en temps réel.</p>
-          <div class="project-techs">
-            <span class="tech-badge">Centreon</span>
-            <span class="tech-badge">Zabbix</span>
-            <span class="tech-badge">SNMP</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <span class="project-number">03</span>
-          <p class="project-type">Sécurité & logs</p>
-          <h3 class="project-title">Centralisation des logs avec Graylog</h3>
-        </div>
-        <div class="project-body">
-          <p class="project-desc">Mise en place d'une solution de centralisation et d'analyse des journaux système, permettant la détection d'anomalies et la traçabilité des événements réseau.</p>
-          <div class="project-techs">
-            <span class="tech-badge">Graylog</span>
-            <span class="tech-badge">Syslog</span>
-            <span class="tech-badge">Elasticsearch</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <span class="project-number">04</span>
-          <p class="project-type">Réseau & sécurité</p>
-          <h3 class="project-title">VPN + Autorité de certification</h3>
-        </div>
-        <div class="project-body">
-          <p class="project-desc">Configuration d'un VPN sécurisé couplé à une autorité de certification (CA) interne pour gérer les certificats et authentifier les connexions distantes.</p>
-          <div class="project-techs">
-            <span class="tech-badge">VPN</span>
-            <span class="tech-badge">PKI / CA</span>
-            <span class="tech-badge">Certificats SSL</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <span class="project-number">05</span>
-          <p class="project-type">Administration système</p>
-          <h3 class="project-title">Active Directory et GPO</h3>
-        </div>
-        <div class="project-body">
-          <p class="project-desc">Déploiement d'un Active Directory avec gestion des unités d'organisation, stratégies de groupe (GPO) et administration des droits d'accès aux ressources partagées.</p>
-          <div class="project-techs">
-            <span class="tech-badge">Windows Server</span>
-            <span class="tech-badge">Active Directory</span>
-            <span class="tech-badge">GPO</span>
-            <span class="tech-badge">DNS</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <span class="project-number">06</span>
-          <p class="project-type">Sécurité applicative</p>
-          <h3 class="project-title">Sécurisation d'un Nextcloud avec Fail2ban</h3>
-        </div>
-        <div class="project-body">
-          <p class="project-desc">Mise en place de Fail2ban pour protéger un serveur Nextcloud contre les attaques par force brute, avec configuration de règles de bannissement automatique.</p>
-          <div class="project-techs">
-            <span class="tech-badge">Nextcloud</span>
-            <span class="tech-badge">Fail2ban</span>
-            <span class="tech-badge">Linux</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <span class="project-number">07</span>
-          <p class="project-type">Réseau</p>
-          <h3 class="project-title">Routage inter-VLAN</h3>
-        </div>
-        <div class="project-body">
-          <p class="project-desc">Configuration du routage entre différents VLANs pour segmenter le réseau et contrôler les flux de communication entre les différentes zones de l'infrastructure.</p>
-          <div class="project-techs">
-            <span class="tech-badge">VLAN</span>
-            <span class="tech-badge">Routage</span>
-            <span class="tech-badge">Switch manageable</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <span class="project-number">08</span>
-          <p class="project-type">Déploiement système</p>
-          <h3 class="project-title">PXE avec WDS + MDT</h3>
-        </div>
-        <div class="project-body">
-          <p class="project-desc">Mise en place d'un déploiement automatisé de postes via PXE, en combinant Windows Deployment Services et Microsoft Deployment Toolkit pour industrialiser l'installation des systèmes.</p>
-          <div class="project-techs">
-            <span class="tech-badge">PXE</span>
-            <span class="tech-badge">WDS</span>
-            <span class="tech-badge">MDT</span>
-            <span class="tech-badge">Windows</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- STAGES -->
-  <section id="stages" style="background: var(--gray-100);">
-    <p class="section-label">Expériences</p>
-    <h2 class="section-title">Stages</h2>
-    <div class="stages-timeline">
-
-      <div class="stage-item">
-        <p class="stage-period">27/05/2024 — 28/06/2024 · 1re année</p>
-        <h3 class="stage-company">La Rese</h3>
-        <p class="stage-role">Technicien systèmes et réseaux — Saintes</p>
-        <ul class="stage-tasks">
-          <li>Gestion de tickets avec GLPI</li>
-          <li>Mise en place d'un portail captif + RADIUS</li>
-        </ul>
-      </div>
-
-      <div class="stage-item">
-        <p class="stage-period">05/01/2026 — 06/02/2026 · 2e année</p>
-        <h3 class="stage-company">Zolux</h3>
-        <p class="stage-role">Technicien systèmes et réseaux — Saintes</p>
-        <ul class="stage-tasks">
-          <li>Gestion de tickets avec GLPI</li>
-          <li>Mise en place PXE avec WDS + MDT</li>
-        </ul>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <p class="section-label">Me joindre</p>
-    <h2 class="section-title">Contact</h2>
-    <div class="contact-grid">
+    <!-- HERO -->
+    <section class="hero" id="home">
       <div>
-        <p class="contact-text">N'hésitez pas à me contacter pour toute question concernant mon parcours ou mes réalisations.</p>
-        <a href="mailto:victor.basset@email.com" class="cv-btn">Télécharger le CV →</a>
+        <p class="hero-eyebrow">Portfolio — BTS SIO option SISR</p>
+        <h1 class="hero-name">Victor Basset</h1>
+        <p class="hero-title">
+          Étudiant en informatique réseaux & sécurité<br>
+          Lycée Élie Vinet, Barbezieux
+        </p>
+        <div class="hero-tags">
+          <span class="tag">Administration réseaux</span>
+          <span class="tag">Sécurité informatique</span>
+          <span class="tag">Supervision & logs</span>
+          <span class="tag">BTS SIO 2024–2026</span>
+        </div>
+        <button class="hero-cta" onclick="showPage('main'); scrollToSection('projects');">Voir mes projets →</button>
       </div>
+      <div class="hero-avatar">
+        <span class="avatar-initials">VB</span>
+        <span class="avatar-label">Photo à venir</span>
+      </div>
+    </section>
+
+    <!-- À PROPOS -->
+    <section id="about">
+      <p class="section-label">Qui suis-je</p>
+      <h2 class="section-title">À propos</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>Étudiant en deuxième année de BTS SIO option SISR au lycée Élie Vinet de Barbezieux, je me passionne pour l'administration des systèmes, la supervision réseau et la sécurité informatique.</p>
+          <p>Au fil de ma formation et de mes stages, j'ai eu l'occasion de travailler sur des infrastructures réelles : déploiement de services réseau, sécurisation de systèmes, gestion de tickets et mise en place d'outils de supervision.</p>
+          <p>Ce portfolio recense mes compétences, mes projets réalisés en formation et en stage, ainsi que les épreuves E4 et E5 du BTS.</p>
+        </div>
+        <div class="info-list">
+          <div class="info-item">
+            <span class="info-key">Formation</span>
+            <span class="info-val">BTS SIO option SISR</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Établissement</span>
+            <span class="info-val">Lycée Élie Vinet, Barbezieux</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Promotion</span>
+            <span class="info-val">2024 – 2026</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Localisation</span>
+            <span class="info-val">Barbezieux, Nouvelle-Aquitaine</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPÉTENCES -->
+    <section id="skills" style="background: var(--gray-100);">
+      <p class="section-label">Savoir-faire</p>
+      <h2 class="section-title">Compétences</h2>
+      <div class="skills-grid">
+
+        <div class="skill-card">
+          <div class="skill-category">Réseaux</div>
+          <ul class="skill-list">
+            <li>Routage inter-VLAN</li>
+            <li>VPN + CA (autorité de certification)</li>
+            <li>Portail captif + RADIUS</li>
+            <li>Load Balancer avec Health Check</li>
+            <li>PXE avec WDS + MDT</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-category">Systèmes</div>
+          <ul class="skill-list">
+            <li>Active Directory et GPO</li>
+            <li>Nextcloud + Fail2ban</li>
+            <li>Gestion de tickets avec GLPI</li>
+            <li>Déploiement de services</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-category">Supervision & logs</div>
+          <ul class="skill-list">
+            <li>Centreon</li>
+            <li>Zabbix</li>
+            <li>Graylog</li>
+            <li>Dossiers de choix techniques</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-category">Outils & méthodes</div>
+          <ul class="skill-list">
+            <li>Veille informationnelle (Google Alerts, flux RSS)</li>
+            <li>Documentation technique</li>
+            <li>Gestion de projet</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJETS -->
+    <section id="projects">
+      <p class="section-label">Réalisations</p>
+      <h2 class="section-title">Projets</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-number">01</span>
+            <p class="project-type">Haute disponibilité</p>
+            <h3 class="project-title">Load Balancer avec Health Check</h3>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Mise en place d'un répartiteur de charge avec vérification automatique de l'état des serveurs, garantissant la continuité de service en cas de panne d'un nœud.</p>
+            <div class="project-techs">
+              <span class="tech-badge">Load Balancing</span>
+              <span class="tech-badge">Health Check</span>
+              <span class="tech-badge">Haute disponibilité</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-number">02</span>
+            <p class="project-type">Supervision réseau</p>
+            <h3 class="project-title">Supervision avec Centreon et Zabbix</h3>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Déploiement et configuration de deux outils de supervision pour surveiller les équipements, générer des alertes et assurer le suivi de l'infrastructure en temps réel.</p>
+            <div class="project-techs">
+              <span class="tech-badge">Centreon</span>
+              <span class="tech-badge">Zabbix</span>
+              <span class="tech-badge">SNMP</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-number">03</span>
+            <p class="project-type">Sécurité & logs</p>
+            <h3 class="project-title">Centralisation des logs avec Graylog</h3>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Mise en place d'une solution de centralisation et d'analyse des journaux système, permettant la détection d'anomalies et la traçabilité des événements réseau.</p>
+            <div class="project-techs">
+              <span class="tech-badge">Graylog</span>
+              <span class="tech-badge">Syslog</span>
+              <span class="tech-badge">Elasticsearch</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-number">04</span>
+            <p class="project-type">Réseau & sécurité</p>
+            <h3 class="project-title">VPN + Autorité de certification</h3>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Configuration d'un VPN sécurisé couplé à une autorité de certification interne pour gérer les certificats et authentifier les connexions distantes.</p>
+            <div class="project-techs">
+              <span class="tech-badge">VPN</span>
+              <span class="tech-badge">PKI / CA</span>
+              <span class="tech-badge">Certificats SSL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-number">05</span>
+            <p class="project-type">Administration système</p>
+            <h3 class="project-title">Active Directory et GPO</h3>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Déploiement d'un Active Directory avec gestion des unités d'organisation, stratégies de groupe (GPO) et administration des droits d'accès aux ressources partagées.</p>
+            <div class="project-techs">
+              <span class="tech-badge">Windows Server</span>
+              <span class="tech-badge">Active Directory</span>
+              <span class="tech-badge">GPO</span>
+              <span class="tech-badge">DNS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-number">06</span>
+            <p class="project-type">Sécurité applicative</p>
+            <h3 class="project-title">Sécurisation d'un Nextcloud avec Fail2ban</h3>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Mise en place de Fail2ban pour protéger un serveur Nextcloud contre les attaques par force brute, avec configuration de règles de bannissement automatique.</p>
+            <div class="project-techs">
+              <span class="tech-badge">Nextcloud</span>
+              <span class="tech-badge">Fail2ban</span>
+              <span class="tech-badge">Linux</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-number">07</span>
+            <p class="project-type">Réseau</p>
+            <h3 class="project-title">Routage inter-VLAN</h3>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Configuration du routage entre différents VLANs pour segmenter le réseau et contrôler les flux de communication entre les différentes zones de l'infrastructure.</p>
+            <div class="project-techs">
+              <span class="tech-badge">VLAN</span>
+              <span class="tech-badge">Routage</span>
+              <span class="tech-badge">Switch manageable</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-number">08</span>
+            <p class="project-type">Déploiement système</p>
+            <h3 class="project-title">PXE avec WDS + MDT</h3>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Mise en place d'un déploiement automatisé de postes via PXE, combinant Windows Deployment Services et Microsoft Deployment Toolkit pour industrialiser l'installation des systèmes.</p>
+            <div class="project-techs">
+              <span class="tech-badge">PXE</span>
+              <span class="tech-badge">WDS</span>
+              <span class="tech-badge">MDT</span>
+              <span class="tech-badge">Windows</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STAGES -->
+    <section id="stages" style="background: var(--gray-100);">
+      <p class="section-label">Expériences</p>
+      <h2 class="section-title">Stages</h2>
+      <div class="stages-timeline">
+
+        <div class="stage-item">
+          <p class="stage-period">27/05/2024 — 28/06/2024 · 1re année</p>
+          <h3 class="stage-company">La Résé</h3>
+          <p class="stage-role">Technicien systèmes et réseaux — Saintes</p>
+          <ul class="stage-tasks">
+            <li>Gestion de tickets avec GLPI</li>
+            <li>Mise en place d'un portail captif + RADIUS</li>
+          </ul>
+        </div>
+
+        <div class="stage-item">
+          <p class="stage-period">05/01/2026 — 06/02/2026 · 2e année</p>
+          <h3 class="stage-company">Zolux</h3>
+          <p class="stage-role">Technicien systèmes et réseaux — Saintes</p>
+          <ul class="stage-tasks">
+            <li>Gestion de tickets avec GLPI</li>
+            <li>Mise en place PXE avec WDS + MDT</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="background: var(--navy); padding: var(--section-pad);">
+      <p class="section-label">Me joindre</p>
+      <h2 class="section-title">Contact</h2>
       <div class="contact-items">
         <div class="contact-item">
           <div class="contact-icon">✉</div>
           <div>
             <div class="contact-detail-label">E-mail</div>
             <div class="contact-detail">victor.basset@email.com</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon">☎</div>
-          <div>
-            <div class="contact-detail-label">Téléphone</div>
-            <div class="contact-detail">06 XX XX XX XX</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon">🔗</div>
-          <div>
-            <div class="contact-detail-label">Portfolio GitHub</div>
-            <div class="contact-detail">victorbasset0.github.io/portfolio</div>
           </div>
         </div>
         <div class="contact-item">
@@ -901,14 +967,226 @@
           </div>
         </div>
       </div>
+    </section>
+
+  </div><!-- fin #page-main -->
+
+  <!-- ══════════════════════════════════ PAGE TABLEAU E4 ══════════════════════════════════ -->
+  <div id="page-tableau" class="page">
+
+    <div class="tableau-section">
+      <p class="section-label">Épreuve E4</p>
+      <h2 class="section-title">Tableau de synthèse des réalisations professionnelles</h2>
+      <p class="tableau-intro">
+        BTS Services Informatiques aux Organisations — Session 2026<br>
+        <strong>Basset Victor</strong> · Lycée Élie Vinet · Option SISR
+      </p>
+
+      <div class="tableau-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th rowspan="2" style="min-width:230px;">Réalisation professionnelle</th>
+              <th rowspan="2" style="min-width:130px;">Période</th>
+              <th colspan="6" style="text-align:center; border-bottom: 1px solid rgba(255,255,255,0.15);">Compétences mises en œuvre</th>
+            </tr>
+            <tr>
+              <th class="th-competences">Gérer le patrimoine informatique</th>
+              <th class="th-competences">Répondre aux incidents & demandes</th>
+              <th class="th-competences">Développer la présence en ligne</th>
+              <th class="th-competences">Travailler en mode projet</th>
+              <th class="th-competences">Mettre à disposition un service</th>
+              <th class="th-competences">Développement professionnel</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- Groupe : formation -->
+            <tr class="group-header">
+              <td colspan="8">Réalisations en cours de formation</td>
+            </tr>
+
+            <tr>
+              <td class="td-realisation">Mise en place d'un Load Balancer avec Health Check</td>
+              <td class="td-periode">En formation</td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+            </tr>
+
+            <tr>
+              <td class="td-realisation">Supervision avec Centreon et Zabbix</td>
+              <td class="td-periode">En formation</td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+            </tr>
+
+            <tr>
+              <td class="td-realisation">Centralisation des logs avec Graylog</td>
+              <td class="td-periode">En formation</td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+            </tr>
+
+            <tr>
+              <td class="td-realisation">Veille informationnelle (alertes Google, flux RSS…)</td>
+              <td class="td-periode">En formation</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check">✓</td>
+            </tr>
+
+            <tr>
+              <td class="td-realisation">Dossiers de choix (supervision, sauvegardes, logs)</td>
+              <td class="td-periode">En formation</td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+            </tr>
+
+            <tr>
+              <td class="td-realisation">Mise en place d'un VPN + une CA</td>
+              <td class="td-periode">En formation</td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+            </tr>
+
+            <tr>
+              <td class="td-realisation">Active Directory et GPO</td>
+              <td class="td-periode">En formation</td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+            </tr>
+
+            <tr>
+              <td class="td-realisation">Mise en place de Fail2ban pour la sécurisation d'un Nextcloud</td>
+              <td class="td-periode">En formation</td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+            </tr>
+
+            <tr>
+              <td class="td-realisation">Routage inter-VLAN</td>
+              <td class="td-periode">En formation</td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+            </tr>
+
+            <!-- Groupe : 1re année -->
+            <tr class="group-header">
+              <td colspan="8">Réalisations en milieu professionnel — 1re année (La Résé, Saintes)</td>
+            </tr>
+
+            <tr>
+              <td class="td-realisation">Gestion de tickets avec GLPI</td>
+              <td class="td-periode">27/05/2024 — 28/06/2024</td>
+              <td class="td-check"></td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+            </tr>
+
+            <tr>
+              <td class="td-realisation">Mise en place d'un portail captif + RADIUS</td>
+              <td class="td-periode">27/05/2024 — 28/06/2024</td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+            </tr>
+
+            <!-- Groupe : 2e année -->
+            <tr class="group-header">
+              <td colspan="8">Réalisations en milieu professionnel — 2e année (Zolux, Saintes)</td>
+            </tr>
+
+            <tr>
+              <td class="td-realisation">Gestion de tickets avec GLPI</td>
+              <td class="td-periode">05/01/2026 — 06/02/2026</td>
+              <td class="td-check"></td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+            </tr>
+
+            <tr>
+              <td class="td-realisation">Mise en place PXE avec WDS + MDT</td>
+              <td class="td-periode">05/01/2026 — 06/02/2026</td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check"></td>
+              <td class="td-check">✓</td>
+              <td class="td-check"></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
     </div>
-  </section>
+
+  </div><!-- fin #page-tableau -->
 
   <!-- FOOTER -->
   <footer>
     <span class="footer-name">Victor Basset — BTS SIO SISR</span>
     <span class="footer-copy">Portfolio 2024–2026</span>
   </footer>
+
+  <script>
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + name).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function scrollToSection(id) {
+      // Légèrement différé pour laisser la page s'afficher
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    }
+  </script>
 
 </body>
 </html>
